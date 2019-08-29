@@ -7,7 +7,7 @@ import {
     PersonDetails
 } from './index'
 
-import './css/app.css';
+import './styles/css/app.css';
 
 const App = () => {
     return (

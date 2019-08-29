@@ -1,14 +1,17 @@
+import DataTransformer from "./DataTransformer";
 
 export default class SwapiService {
 
     _apiBaseUrl = 'https://swapi.co/api';
+    dataTransformer = new DataTransformer();
 
     async getResource (url) {
-        const result = await fetch(`${this._apiBaseUrl}${url}`);
-        if (!result.ok) {
-            throw new Error(`${result.status}`);
+        const data = await fetch(`${this._apiBaseUrl}${url}`);
+        if (!data.ok) {
+            throw new Error(`Could not fetch ${url}` +
+                `, received ${data.status}`)
         }
-        return await result.json();
+        return await data.json();
     }
 
     async getAllPeople () {
@@ -22,11 +25,12 @@ export default class SwapiService {
 
     async getAllPlanets () {
         const res = await this.getResource('/planets/');
-        return res.results;
+        return res.results.map(this.dataTransformer.transformPlanet);
     }
 
-    getPlanet (id) {
-        return this.getResource(`/planets/${id}/`);
+    async getPlanet (id) {
+        const planet = await this.getResource(`/planets/${id}/`);
+        return this.dataTransformer.transformPlanet(planet);
     }
 
     async getAllStarships () {
@@ -38,26 +42,3 @@ export default class SwapiService {
         return this.getResource(`/starships/${id}/`);
     }
 }
-
-//
-// const getResource = async (url) => {
-//     const res = await fetch(url);
-//     const body = await res.json();
-//     return body;
-// }
-//
-// // fetch('https://swapi.co/api/people/1')
-// //     .then((response) => {
-// //         return response.json();
-// //     }).then((body) => {
-// //         console.log(body);
-// //     });
-//
-//
-// getResource('https://swapi.co/api/people/jvbiehr433')
-//     .then((body) => {
-//         console.log(body);
-//     })
-//     .catch((error) => {
-//         console.log(error);
-//     });
