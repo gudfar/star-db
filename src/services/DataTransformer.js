@@ -8,4 +8,14 @@ export default class DataTransformer {
             diameter: planet.diameter
         };
     }
+
+    transformPerson (person) {
+        return {
+            name: person.name,
+            gender: person.gender,
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color,
+        };
+    }
+
 };

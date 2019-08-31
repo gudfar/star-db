@@ -16,11 +16,12 @@ export default class SwapiService {
 
     async getAllPeople () {
         const res = await this.getResource('/people/');
-        return res.results;
+        return res.results.map(this.dataTransformer.transformPerson);
     }
 
-    getPerson (id) {
-        return this.getResource(`/people/${id}/`);
+    async getPerson (id) {
+        const person = await this.getResource(`/people/${id}/`);
+        return this.dataTransformer.transformPerson(person);
     }
 
     async getAllPlanets () {

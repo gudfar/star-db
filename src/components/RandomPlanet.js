@@ -15,7 +15,6 @@ export default class RandomPlanet extends Component {
             loading: true,
             error: false
         };
-        this.fetchRandomPlanet();
     };
 
     onRandomPlanetLoaded = (planet) => {
@@ -31,6 +30,10 @@ export default class RandomPlanet extends Component {
             .then(this.onRandomPlanetLoaded)
             .catch(this.onError);
     };
+
+    componentDidMount() {
+        this.fetchRandomPlanet();
+    }
 
     onError = (error) =>  {
         this.setState({error: true, loading: false});
