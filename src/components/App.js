@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import {
     Header,
     RandomPlanet,
-    ItemList,
-    PersonDetails
+    ErrorIndicator,
+    PeoplePage
 } from './index'
 
 import './styles/css/app.css';
@@ -14,34 +14,24 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedPerson: 1
+            hasError: false
         };
     };
 
-
-    onPersonSelected = (id) => {
-        this.setState({
-            selectedPerson: id
-        });
-    };
+    componentDidCatch(error, errorInfo) {
+        this.setState({ hasError: true });
+    }
 
     render() {
+        if (this.state.hasError) {
+            return <ErrorIndicator/>;
+        }
         return (
             <div>
                 <Header />
                 <RandomPlanet />
-                <div className="row mb2">
-                    <div className="col-md-6">
-                        <ItemList onPersonSelected={this.onPersonSelected}  />
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails personId={this.state.selectedPerson} />
-                    </div>
-                </div>
+                <PeoplePage/>
             </div>
         );
     }
-
-
-
 };

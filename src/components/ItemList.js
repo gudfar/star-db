@@ -34,11 +34,11 @@ export default class ItemList extends Component {
         return (
             <ul className="item-list list-group">
                 {peopleList.map(({name}, index) => (
-                    <li
-                        key={index + 1}
+                    <li key={index + 1}
                         className="list-group-item"
                         onClick={() => this.props.onPersonSelected(index + 1)}
-                    >{name}</li>))}
+                    >{name}</li>
+                ))}
             </ul>
         );
     }

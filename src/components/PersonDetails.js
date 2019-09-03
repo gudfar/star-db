@@ -48,7 +48,6 @@ export default class PersonDetails extends Component {
 
         return (
             <div className="person-details card">
-
                 <img className="person-image" src={`https://starwars-visualguide.com/assets/img/characters/${this.props.personId}.jpg`} />
                 <div className="card-body">
                     <h4>{ name }</h4>

@@ -5,3 +5,4 @@ export {default as ItemList} from './ItemList';
 export {default as PersonDetails} from './PersonDetails';
 export {default as Spinner} from './Spinner';
 export {default as ErrorIndicator} from './ErrorIndicator';
+export {default as PeoplePage} from './PeoplePage';
