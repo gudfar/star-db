@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './styles/css/item-list.css';
-import SwapiService from "../services/SwapiService";
 import {Spinner} from "./index";
 
 export default class ItemList extends Component {
@@ -9,35 +8,35 @@ export default class ItemList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            peopleList: []
+            itemList: []
         };
     };
 
-    fetchPeopleList () {
-        const swapiService = new SwapiService();
-        swapiService.getAllPeople()
-            .then((peopleList) => {
-                peopleList = peopleList.map((p) => ({name: p.name}));
-                this.setState({peopleList});
+    fetchItemList () {
+        this.props.getItemList()
+            .then((itemList) => {
+                this.setState({itemList});
             });
     }
 
     componentDidMount() {
-        this.fetchPeopleList();
+        this.fetchItemList();
     }
 
     render() {
-        const { peopleList } = this.state;
-        if (!peopleList) {
+        const { itemList } = this.state;
+        if (!itemList) {
             return (<Spinner/>)
         }
         return (
             <ul className="item-list list-group">
-                {peopleList.map(({name}, index) => (
+                {itemList.map((item, index) => (
                     <li key={index + 1}
                         className="list-group-item"
                         onClick={() => this.props.onPersonSelected(index + 1)}
-                    >{name}</li>
+                    >
+                        {this.props.renderItem(item)}
+                    </li>
                 ))}
             </ul>
         );

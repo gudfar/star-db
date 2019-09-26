@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import {
     Header,
@@ -8,8 +8,11 @@ import {
 } from './index'
 
 import './styles/css/app.css';
+import SwapiService from "../services/SwapiService";
 
 export default class App extends Component {
+
+    swapiService = new SwapiService();
 
     constructor(props) {
         super(props);
@@ -20,18 +23,21 @@ export default class App extends Component {
 
     componentDidCatch(error, errorInfo) {
         this.setState({ hasError: true });
-    }
+    };
 
     render() {
         if (this.state.hasError) {
             return <ErrorIndicator/>;
         }
         return (
-            <div>
+            <Fragment>
                 <Header />
                 <RandomPlanet />
-                <PeoplePage/>
-            </div>
+                <PeoplePage
+                    getItemList={this.swapiService.getAllPeople}
+                    renderItem={({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`}
+                />
+            </Fragment>
         );
     }
 };
