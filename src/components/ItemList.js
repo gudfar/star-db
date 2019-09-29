@@ -28,7 +28,6 @@ export default class ItemList extends Component {
         if (!itemList) {
             return (<Spinner/>)
         }
-        console.log(itemList);
         return (
             <ul className="item-list list-group">
                 {itemList.map((item) => (
