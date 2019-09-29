@@ -1,8 +1,8 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 
 import './styles/css/random-planet.css';
 import SwapiService from "../services/SwapiService";
-import {ErrorBoundary, Spinner} from "./index";
+import { Spinner } from "./index";
 import ImageService from "../services/ImageService";
 
 export default class RandomPlanet extends Component {
@@ -41,7 +41,6 @@ export default class RandomPlanet extends Component {
         } = this.state;
 
         return (
-            <ErrorBoundary>
                 <div className="random-planet jumbotron rounded">
                     <img className="planet-image" src={this.imageService.getPlanetImage(id)}/>
                     <div>
@@ -62,7 +61,6 @@ export default class RandomPlanet extends Component {
                         </ul>
                     </div>
                 </div>
-            </ErrorBoundary>
         );
     }
 }
