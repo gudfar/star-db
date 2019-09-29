@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 import {
     ItemList,
-    PersonDetails, ErrorIndicator
+    PersonDetails,
+    ErrorBoundary
 } from './index'
 
 export default class PeoplePage extends Component {
@@ -11,7 +12,6 @@ export default class PeoplePage extends Component {
         super(props);
         this.state = {
             selectedPerson: 1,
-            hasError: false
         };
     };
 
@@ -21,15 +21,9 @@ export default class PeoplePage extends Component {
         });
     };
 
-    componentDidCatch () {
-        this.setState({ hasError: true });
-    }
-
     render() {
-        if (this.state.hasError) {
-            return <ErrorIndicator/>;
-        }
         return (
+        <ErrorBoundary>
             <div className="row mb2">
                 <div className="col-md-6">
                     <ItemList
@@ -42,6 +36,7 @@ export default class PeoplePage extends Component {
                     <PersonDetails personId={this.state.selectedPerson} />
                 </div>
             </div>
+        </ErrorBoundary>
         );
     }
 };
