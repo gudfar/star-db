@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {
     ItemList,
-    PersonDetails,
+    ItemDetails,
     ErrorBoundary
 } from './index'
 
@@ -11,7 +11,7 @@ export default class PeoplePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedPerson: 1,
+            selectedPerson: null,
         };
     };
 
@@ -23,20 +23,29 @@ export default class PeoplePage extends Component {
 
     render() {
         return (
-        <ErrorBoundary>
-            <div className="row mb2">
-                <div className="col-md-6">
-                    <ItemList
-                        onPersonSelected={this.onPersonSelected}
-                        getItemList={this.props.getItemList}
-                        renderItem={this.props.renderItem}
-                    />
+            <ErrorBoundary>
+                <div className="row mb2">
+                    <div className="col-md-6">
+                        <ItemList
+                            onPersonSelected={this.onPersonSelected}
+                            getItemList={this.props.getItemList}
+                            renderItem={this.props.renderItem}
+                        />
+                    </div>
+                    { !this.state.selectedPerson
+                        ? null
+                        : (
+                            <div className="col-md-6">
+                                <ItemDetails
+                                    itemId={this.state.selectedPerson}
+                                    getItemDetails={this.props.getItemDetails}
+                                    imageUrl={this.props.getImage(this.state.selectedPerson)}
+                                 />
+                            </div>)
+                    }
+
                 </div>
-                <div className="col-md-6">
-                    <PersonDetails personId={this.state.selectedPerson} />
-                </div>
-            </div>
-        </ErrorBoundary>
+            </ErrorBoundary>
         );
     }
 };

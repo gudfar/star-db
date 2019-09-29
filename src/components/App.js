@@ -8,10 +8,11 @@ import {
 
 import './styles/css/app.css';
 import SwapiService from "../services/SwapiService";
+import ImageService from "../services/ImageService";
 
 export default class App extends Component {
-
     swapiService = new SwapiService();
+    imageService = new ImageService();
 
     render() {
         return (
@@ -22,6 +23,8 @@ export default class App extends Component {
                     <PeoplePage
                         getItemList={this.swapiService.getAllPeople}
                         renderItem={({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`}
+                        getItemDetails={this.swapiService.getPerson}
+                        getImage={this.imageService.getPersonImage}
                     />
                 </ErrorBoundary>
             </Fragment>

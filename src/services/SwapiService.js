@@ -34,12 +34,13 @@ export default class SwapiService {
         return this.dataTransformer.transformPlanet(planet);
     };
 
-    async getAllStarships () {
+    getAllStarships = async() => {
         const res = await this.getResource('/starships/');
-        return res.results;
+        return res.results.map(this.dataTransformer.transformStarship);
     };
 
     getStarship = async(id) => {
-        return this.getResource(`/starships/${id}/`);
+        const starship = await  this.getResource(`/starships/${id}/`);
+        return this.dataTransformer.transformStarship(starship);
     };
 }

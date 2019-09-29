@@ -1,40 +1,37 @@
 import React, { Component } from 'react';
 
-import './styles/css/person-details.css';
-import SwapiService from "../services/SwapiService";
+import './styles/css/item-details.css';
 import {Spinner} from "./index";
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            person: null,
+            item: null,
             loading: true
         };
     };
 
-
     componentDidMount() {
-        this.fetchPerson();
+        this.fetchItem();
     }
 
-    fetchPerson () {
-        const { personId } = this.props;
-        if (!personId) {
+    fetchItem () {
+        const { itemId } = this.props;
+        if (!itemId) {
             return;
         }
-        const swapiService = new SwapiService();
-        swapiService.getPerson(personId)
-            .then((person) => {
-                this.setState({person, loading: false});
+        this.props.getItemDetails(itemId)
+            .then((item) => {
+                this.setState({item, loading: false});
             });
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.personId !== prevProps.personId) {
+        if (this.props.itemId !== prevProps.itemId) {
             this.setState({loading: true});
-            this.fetchPerson();
+            this.fetchItem();
         }
     }
 
@@ -44,11 +41,11 @@ export default class PersonDetails extends Component {
             return <Spinner/>
         }
 
-        const {person: {name, gender, birthYear, eyeColor}} = this.state;
+        const {item: {name, gender, birthYear, eyeColor}} = this.state;
 
         return (
-            <div className="person-details card">
-                <img className="person-image" src={`https://starwars-visualguide.com/assets/img/characters/${this.props.personId}.jpg`} />
+            <div className="item-details card">
+                <img className="item-image" src={this.props.imageUrl} />
                 <div className="card-body">
                     <h4>{ name }</h4>
                     <ul className="list-group list-group-flush">
