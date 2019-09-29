@@ -9,7 +9,7 @@ export default class RandomPlanetCard extends Component {
 
     imageService = new ImageService();
     swapiService = new SwapiService();
-    
+
     constructor(props) {
         super(props);
         this.state = {

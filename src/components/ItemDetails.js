@@ -41,26 +41,17 @@ export default class ItemDetails extends Component {
             return <Spinner/>
         }
 
-        const {item: {name, gender, birthYear, eyeColor}} = this.state;
+        const { item } = this.state;
 
         return (
             <div className="item-details card">
                 <img className="item-image" src={this.props.imageUrl} />
                 <div className="card-body">
-                    <h4>{ name }</h4>
+                    <h4>{ this.state.item.name }</h4>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <span className="term">Gender</span>
-                            <span>{gender}</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Birth Year</span>
-                            <span>{birthYear}</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Eye Color</span>
-                            <span>{eyeColor}</span>
-                        </li>
+                        {React.Children.map(this.props.children, (child) => {
+                            return React.cloneElement(child, { item })
+                        })}
                     </ul>
                 </div>
             </div>

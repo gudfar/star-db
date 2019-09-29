@@ -3,7 +3,7 @@ import React, {Component, Fragment} from 'react';
 import {
     Header,
     RandomPlanet,
-    PeoplePage, ErrorBoundary
+    Page, ErrorBoundary
 } from './index'
 
 import './styles/css/app.css';
@@ -20,9 +20,8 @@ export default class App extends Component {
                 <ErrorBoundary>
                     <Header />
                     <RandomPlanet />
-                    <PeoplePage
+                    <Page
                         getItemList={this.swapiService.getAllPeople}
-                        renderItem={({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`}
                         getItemDetails={this.swapiService.getPerson}
                         getImage={this.imageService.getPersonImage}
                     />

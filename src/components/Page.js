@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 import {
     ItemList,
     ItemDetails,
-    ErrorBoundary
+    ErrorBoundary, DetailRow
 } from './index'
 
-export default class PeoplePage extends Component {
+export default class Page extends Component {
 
     constructor(props) {
         super(props);
@@ -29,21 +29,24 @@ export default class PeoplePage extends Component {
                         <ItemList
                             onPersonSelected={this.onPersonSelected}
                             getItemList={this.props.getItemList}
-                            renderItem={this.props.renderItem}
+                            renderItem={({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`}
                         />
                     </div>
                     { !this.state.selectedPerson
-                        ? null
+                        ? 'Please, select item from list ...'
                         : (
                             <div className="col-md-6">
                                 <ItemDetails
                                     itemId={this.state.selectedPerson}
                                     getItemDetails={this.props.getItemDetails}
                                     imageUrl={this.props.getImage(this.state.selectedPerson)}
-                                 />
+                                >
+                                    <DetailRow field={'gender'} label={'Gender'}/>
+                                    <DetailRow field={'birthYear'} label={'Birth Year'}/>
+                                    <DetailRow field={'eyeColor'} label={'Eye Color'}/>
+                                </ItemDetails>
                             </div>)
                     }
-
                 </div>
             </ErrorBoundary>
         );
