@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 
 import './styles/css/random-planet.css';
 import SwapiService from "../services/SwapiService";
-import { ErrorBoundary, Spinner } from "./index";
+import {ErrorBoundary, Spinner} from "./index";
 import ImageService from "../services/ImageService";
 
 export default class RandomPlanet extends Component {
@@ -32,43 +32,35 @@ export default class RandomPlanet extends Component {
 
     render() {
 
-        if (!this.state.planet) {
-            return null;
+        if (this.state.loading) {
+            return <Spinner/>;
         }
 
         const {
-            loading,
             planet: {id, name, population, rotationPeriod, diameter}
         } = this.state;
 
         return (
             <ErrorBoundary>
                 <div className="random-planet jumbotron rounded">
-                    { loading
-                        ? <Spinner/>
-                        : (
-                            <Fragment>
-                                <img className="planet-image" src={this.imageService.getPlanetImage(id)}/>
-                                <div>
-                                    <h4>{name}</h4>
-                                    <ul className="list-group list-group-flush">
-                                        <li className="list-group-item">
-                                            <span className="term">Population</span>
-                                            <span>{population}</span>
-                                        </li>
-                                        <li className="list-group-item">
-                                            <span className="term">Rotation Period</span>
-                                            <span>{rotationPeriod}</span>
-                                        </li>
-                                        <li className="list-group-item">
-                                            <span className="term">Diameter</span>
-                                            <span>{diameter}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </Fragment>
-                        )
-                    }
+                    <img className="planet-image" src={this.imageService.getPlanetImage(id)}/>
+                    <div>
+                        <h4>{name}</h4>
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item">
+                                <span className="term">Population</span>
+                                <span>{population}</span>
+                            </li>
+                            <li className="list-group-item">
+                                <span className="term">Rotation Period</span>
+                                <span>{rotationPeriod}</span>
+                            </li>
+                            <li className="list-group-item">
+                                <span className="term">Diameter</span>
+                                <span>{diameter}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </ErrorBoundary>
         );
