@@ -27,7 +27,7 @@ export default class Page extends Component {
                 <div className="row mb2">
                     <div className="col-md-6">
                         <ItemList
-                            onPersonSelected={this.onPersonSelected}
+                            onItemSelected={this.onPersonSelected}
                             getItemList={this.props.getItemList}
                             renderItem={({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`}
                         />
