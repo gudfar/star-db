@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {ErrorBoundary} from './index'
+import { ErrorBoundary } from './index'
 
 import {PersonList} from "./list-components";
 import {PersonDetails} from "./detail-components";

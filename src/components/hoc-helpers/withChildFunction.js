@@ -3,7 +3,7 @@ import React from "react";
 const withChildFunction = (Wrapped, renderFn) =>{
     return (props) => {
         return (
-            <Wrapped{...props}>
+            <Wrapped {...props}>
                 {renderFn}
             </Wrapped>
         );
