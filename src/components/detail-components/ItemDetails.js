@@ -7,7 +7,7 @@ const ItemDetails = (props) => {
     const {imageUrl, children, item} = props;
     return (
         <div className="item-details card">
-            <img className="item-image" src={imageUrl} />
+            <img className="item-image" src={imageUrl(item.id)} />
             <div className="card-body">
                 <h4>{ item.name }</h4>
                 <ul className="list-group list-group-flush">

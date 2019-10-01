@@ -20,11 +20,7 @@ export default class App extends Component {
                 <ErrorBoundary>
                     <Header />
                     <RandomPlanet />
-                    <Page
-                        getItemList={this.swapiService.getAllPeople}
-                        getItemDetails={this.swapiService.getPerson}
-                        getImage={this.imageService.getPersonImage}
-                    />
+                    <Page/>
                 </ErrorBoundary>
             </Fragment>
         );

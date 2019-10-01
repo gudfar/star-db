@@ -1,9 +1,12 @@
-import {withListData} from "../hoc-helpers";
+import React from "react";
+import {withChildFunction, withListData} from "../hoc-helpers";
 import SwapiService from "../../services/SwapiService";
 import { ItemList } from "./index";
 
 const { getAllPeople } = new SwapiService();
 
-const PersonList = withListData(ItemList, getAllPeople);
+const renderListItem = ({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`;
+
+const PersonList = withListData(withChildFunction(ItemList, renderListItem), getAllPeople);
 
 export default PersonList;
