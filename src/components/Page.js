@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
 import {
-    ItemList,
-    ItemDetails,
     ErrorBoundary, DetailRow
 } from './index'
+
+import { PersonList } from "./list-components";
+import { PersonDetails} from "./detail-components";
 
 export default class Page extends Component {
 
@@ -26,17 +27,16 @@ export default class Page extends Component {
             <ErrorBoundary>
                 <div className="row mb2">
                     <div className="col-md-6">
-                        <ItemList
-                            onItemSelected={this.onPersonSelected}
-                            getItemList={this.props.getItemList}
+                        <PersonList
                             renderItem={({name, gender, birthYear}) => `${name} (${gender} ${birthYear})`}
+                            onItemSelected={this.onPersonSelected}
                         />
                     </div>
                     { !this.state.selectedPerson
                         ? 'Please, select item from list ...'
                         : (
                             <div className="col-md-6">
-                                <ItemDetails
+                                <PersonDetails
                                     itemId={this.state.selectedPerson}
                                     getItemDetails={this.props.getItemDetails}
                                     imageUrl={this.props.getImage(this.state.selectedPerson)}
@@ -44,7 +44,7 @@ export default class Page extends Component {
                                     <DetailRow field={'gender'} label={'Gender'}/>
                                     <DetailRow field={'birthYear'} label={'Birth Year'}/>
                                     <DetailRow field={'eyeColor'} label={'Eye Color'}/>
-                                </ItemDetails>
+                                </PersonDetails>
                             </div>)
                     }
                 </div>

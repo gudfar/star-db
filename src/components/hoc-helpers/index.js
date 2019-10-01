@@ -1,1 +1,2 @@
-export {default as withData} from './withData';
+export {default as withListData} from './withListData';
+export {default as withDetailsData} from './withDetailsData';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Spinner} from "../index";
 
-const withData = (View, getItemList) => {
+const withListData = (View, getItemList) => {
   return class extends Component {
       constructor(props) {
           super(props);
@@ -31,4 +31,4 @@ const withData = (View, getItemList) => {
   }
 };
 
-export default withData;
+export default withListData;
