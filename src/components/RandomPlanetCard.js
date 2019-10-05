@@ -7,9 +7,6 @@ import ImageService from "../services/ImageService";
 
 export default class RandomPlanetCard extends Component {
 
-    imageService = new ImageService();
-    swapiService = new SwapiService();
-
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +17,7 @@ export default class RandomPlanetCard extends Component {
     };
 
     fetchRandomPlanet () {
-        this.swapiService.getPlanet(this.state.id)
+        this.props.swapiService.getPlanet(this.state.id)
             .then((planet) => {
                 this.setState({planet, loading: false});
             });
@@ -42,7 +39,7 @@ export default class RandomPlanetCard extends Component {
 
         return (
             <Fragment>
-                <img className="planet-image" src={this.imageService.getPlanetImage(id)}/>
+                <img className="planet-image" src={this.props.imageService.getPlanetImage(id)}/>
                 <div>
                     <h4>{name}</h4>
                     <ul className="list-group list-group-flush">
