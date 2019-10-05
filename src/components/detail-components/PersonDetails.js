@@ -1,17 +1,12 @@
 import React from "react";
 import {withDetailsData} from "../hoc-helpers";
-import SwapiService from "../../services/SwapiService";
 import {ItemDetails} from "./index";
 import {DetailRow} from "../index";
-import ImageService from "../../services/ImageService";
-
-const { getPerson } = new SwapiService();
-const { getPersonImage } = new ImageService();
 
 const withDetailsChildFunction = (Wrapped) =>{
     return (props) => {
         return (
-            <Wrapped {...props} imageUrl={getPersonImage}>
+            <Wrapped {...props}>
                 <DetailRow field={'gender'} label={'Gender'}/>
                 <DetailRow field={'birthYear'} label={'Birth Year'}/>
                 <DetailRow field={'eyeColor'} label={'Eye Color'}/>
@@ -20,6 +15,6 @@ const withDetailsChildFunction = (Wrapped) =>{
     }
 };
 
-const PersonDetails = withDetailsData(withDetailsChildFunction(ItemDetails), getPerson);
+const PersonDetails = withDetailsData(withDetailsChildFunction(ItemDetails), "getPerson", "getPersonImage");
 
 export default PersonDetails;

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {Spinner} from "../index";
+import {ServiceContext} from "../../services/context";
 
-const withDetailsData = (View, getItemDetails) => {
+const withDetailsData = (View, getItemDetails, getImageUrl) => {
 
     return class extends Component {
+        static contextType = ServiceContext;
         constructor(props) {
             super(props);
             this.state = {
@@ -14,11 +16,11 @@ const withDetailsData = (View, getItemDetails) => {
 
         fetchItem () {
             const { itemId } = this.props;
+            const swapiService =  this.context.swapiService;
             if (!itemId) {
                 return;
             }
-
-            getItemDetails(itemId)
+            swapiService[getItemDetails](itemId)
                 .then((item) => {
                     this.setState({item, loading: false});
                 });
@@ -40,9 +42,12 @@ const withDetailsData = (View, getItemDetails) => {
             if (this.state.loading) {
                 return <Spinner/>
             }
-
             const { item } = this.state;
-            return <View {...this.props} item={item}/>
+            return <View
+                {...this.props}
+                item={item}
+                imageUrl={this.context.imageService[getImageUrl]}
+            />
         }
     };
 };
