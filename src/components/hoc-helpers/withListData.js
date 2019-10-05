@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {Spinner} from "../index";
+import { ServiceContext } from "../../services/context";
 
 const withListData = (View, getItemList) => {
   return class extends Component {
+      static contextType = ServiceContext;
       constructor(props) {
           super(props);
           this.state = {
@@ -11,7 +13,8 @@ const withListData = (View, getItemList) => {
       };
 
       fetchItemList () {
-          getItemList()
+          const swapiService =  this.context.swapiService;
+          swapiService[getItemList]()
               .then((itemList) => {
                   this.setState({itemList});
               });

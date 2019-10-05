@@ -25,17 +25,13 @@ export default class Page extends Component {
             <ErrorBoundary>
                 <div className="row mb2">
                     <div className="col-md-6">
-                        <PersonList
-                            onItemSelected={this.onPersonSelected}
-                        />
+                        <PersonList onItemSelected={this.onPersonSelected} />
                     </div>
                     { !this.state.selectedPerson
                         ? 'Please, select item from list ...'
                         : (
                             <div className="col-md-6">
-                                <PersonDetails
-                                    itemId={this.state.selectedPerson}
-                                />
+                                <PersonDetails itemId={this.state.selectedPerson}/>
                             </div>)
                     }
                 </div>
