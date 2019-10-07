@@ -8,7 +8,8 @@ const withListData = (View, getItemList) => {
       constructor(props) {
           super(props);
           this.state = {
-              itemList: null
+              itemList: null,
+              loading: true
           };
       };
 
@@ -16,7 +17,7 @@ const withListData = (View, getItemList) => {
           const swapiService =  this.context.swapiService;
           swapiService[getItemList]()
               .then((itemList) => {
-                  this.setState({itemList});
+                  this.setState({itemList, loading: false});
               });
       }
 
@@ -25,8 +26,8 @@ const withListData = (View, getItemList) => {
       }
 
       render() {
-          const { itemList } = this.state;
-          if (!itemList) {
+          const { itemList, loading } = this.state;
+          if (loading) {
               return (<Spinner/>)
           }
           return <View {...this.props} itemList={itemList}/>

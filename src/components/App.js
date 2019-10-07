@@ -3,9 +3,10 @@ import React, {Component, Fragment} from 'react';
 import {
     Header,
     RandomPlanet,
-    Page,
     ErrorBoundary
 } from './index'
+
+import {PeoplePage} from "./pages";
 
 import './styles/css/app.css';
 import {ServiceContext} from "../services/context";
@@ -23,7 +24,7 @@ export default class App extends Component {
                     }}>
                         <Header />
                         <RandomPlanet />
-                        <Page/>
+                        <PeoplePage/>
                     </ServiceContext.Provider>
                 </ErrorBoundary>
             </Fragment>

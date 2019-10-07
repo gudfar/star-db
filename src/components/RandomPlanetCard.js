@@ -1,9 +1,7 @@
 import React, {Component, Fragment} from 'react';
 
 import './styles/css/random-planet.css';
-import SwapiService from "../services/SwapiService";
 import { Spinner } from "./index";
-import ImageService from "../services/ImageService";
 
 export default class RandomPlanetCard extends Component {
 
