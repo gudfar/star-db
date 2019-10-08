@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import '../styles/css/item-details.css';
+
 
 const ItemDetails = (props) => {
 
@@ -18,6 +20,12 @@ const ItemDetails = (props) => {
             </div>
         </div>
     );
+};
+
+ItemDetails.propTypes = {
+    imageUrl: PropTypes.func.isRequired,
+    item: PropTypes.object.isRequired,
+    children: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default ItemDetails;

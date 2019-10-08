@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
 
 import './styles/css/random-planet.css';
-import { Spinner } from "./index";
+import { Spinner } from './index';
+import PropTypes from 'prop-types';
 
 export default class RandomPlanetCard extends Component {
 
@@ -59,3 +60,8 @@ export default class RandomPlanetCard extends Component {
         );
     }
 }
+
+RandomPlanetCard.propTypes = {
+    imageService: PropTypes.object.isRequired,
+    swapiService: PropTypes.object.isRequired,
+};
