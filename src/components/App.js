@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 
 import {
     Header,
@@ -15,45 +15,41 @@ import ImageService from "../services/ImageService";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {StarshipDetails} from "./detail-components";
 
-export default class App extends Component {
 
-    state = {
-        isLoggedIn: false
+const App = () =>  {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const onLogin = () => {
+        setIsLoggedIn(true);
     };
 
-    onLogin = () => {
-        this.setState({isLoggedIn: true});
-    };
+    return (
+        <Fragment>
+            <ErrorBoundary>
+                <ServiceContext.Provider value={{
+                    swapiService: new SwapiService(),
+                    imageService: new ImageService()
+                }}>
+                    <BrowserRouter>
+                        <Header />
+                        <RandomPlanet />
+                        <Switch>
+                            <Route path={'/'} exact render={() => <h2>Welcome to Star DB</h2>}/>
+                            <Route path={'/people/:id?'} component={PeoplePage}/>
+                            <Route path={'/planets'} component={PlanetPage}/>
+                            <Route path={'/starships/'} exact component={StarshipPage}/>
+                            <Route path={'/starships/:id'} exact render={({match: {params: {id}}}) => <StarshipDetails itemId={id}/>}/>
+                            <Route path="/login" render={() => (<LoginPage isLoggedIn={isLoggedIn} onLogin={onLogin}/>)}/>
+                            <Route path="/secret" render={() => (<SecretPage isLoggedIn={isLoggedIn}/>)}/>
 
-    render() {
-        const {isLoggedIn} = this.state;
-        return (
-            <Fragment>
-                <ErrorBoundary>
-                    <ServiceContext.Provider value={{
-                        swapiService: new SwapiService(),
-                        imageService: new ImageService()
-                    }}>
-                        <BrowserRouter>
-                            <Header />
-                            <RandomPlanet />
+                            <Route render={() => <h2>Page not found</h2>} />
+                        </Switch>
 
-                            <Switch>
-                                <Route path={'/'} exact render={() => <h2>Welcome to Star DB</h2>}/>
-                                <Route path={'/people/:id?'} component={PeoplePage}/>
-                                <Route path={'/planets'} component={PlanetPage}/>
-                                <Route path={'/starships/'} exact component={StarshipPage}/>
-                                <Route path={'/starships/:id'} exact render={({match: {params: {id}}}) => <StarshipDetails itemId={id}/>}/>
-                                <Route path="/login" render={() => (<LoginPage isLoggedIn={isLoggedIn} onLogin={this.onLogin}/>)}/>
-                                <Route path="/secret" render={() => (<SecretPage isLoggedIn={isLoggedIn}/>)}/>
-
-                                <Route render={() => <h2>Page not found</h2>} />
-                            </Switch>
-
-                        </BrowserRouter>
-                    </ServiceContext.Provider>
+                    </BrowserRouter>
+                </ServiceContext.Provider>
             </ErrorBoundary>
-            </Fragment>
-        );
-    }
+        </Fragment>
+    );
 };
+
+export default App;

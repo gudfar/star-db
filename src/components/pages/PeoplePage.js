@@ -12,16 +12,16 @@ const PeoplePage = ({history, match}) => {
                 <div className="col-md-6">
                     <PersonList onItemSelected={(id) => history.push(id)} />
                 </div>
-                         { !match.params.id
-                             ? 'Please, select item from list ...'
-                             : (
-                                 <div className="col-md-6">
-                                     <PersonDetails itemId={match.params.id}/>
-                                 </div>)
-                         }
+                { !match.params.id
+                    ? 'Please, select item from list ...'
+                    : (
+                        <div className="col-md-6">
+                            <PersonDetails itemId={match.params.id}/>
+                        </div>)
+                }
             </div>
-                </ErrorBoundary>
-            );
+        </ErrorBoundary>
+    );
 };
 
 export default withRouter(PeoplePage);

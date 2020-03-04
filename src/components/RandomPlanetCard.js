@@ -1,67 +1,61 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import './styles/css/random-planet.css';
 import { Spinner } from './index';
 import PropTypes from 'prop-types';
 
-export default class RandomPlanetCard extends Component {
+const RandomPlanetCard = ({imageService, swapiService}) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: (Math.floor(Math.random() * 25) + 2),
-            planet: null,
-            loading: true,
+    const [id] = useState(Math.floor(Math.random() * 25) + 2);
+    const [planet, setPlanet] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    //componentDidMount
+    useEffect(() => {
+        const fetchRandomPlanet = () => {
+            swapiService.getPlanet(id)
+                .then((planet) => {
+                    setPlanet(planet);
+                    setLoading(false);
+                });
         };
-    };
+        fetchRandomPlanet();
+    }, [id, swapiService]);
 
-    fetchRandomPlanet () {
-        this.props.swapiService.getPlanet(this.state.id)
-            .then((planet) => {
-                this.setState({planet, loading: false});
-            });
-    };
 
-    componentDidMount() {
-        this.fetchRandomPlanet();
+    if (loading) {
+        return <Spinner/>;
     }
 
-    render() {
+    const {name, population, rotationPeriod, diameter} = planet;
 
-        if (this.state.loading) {
-            return <Spinner/>;
-        }
-
-        const {
-            planet: {id, name, population, rotationPeriod, diameter}
-        } = this.state;
-
-        return (
-            <Fragment>
-                <img className="planet-image" src={this.props.imageService.getPlanetImage(id)}/>
-                <div>
-                    <h4>{name}</h4>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <span className="term">Population</span>
-                            <span>{population}</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Rotation Period</span>
-                            <span>{rotationPeriod}</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Diameter</span>
-                            <span>{diameter}</span>
-                        </li>
-                    </ul>
-                </div>
-            </Fragment>
-        );
-    }
-}
+    return (
+        <Fragment>
+            <img className="planet-image" src={imageService.getPlanetImage(id)}/>
+            <div>
+                <h4>{name}</h4>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                        <span className="term">Population</span>
+                        <span>{population}</span>
+                    </li>
+                    <li className="list-group-item">
+                        <span className="term">Rotation Period</span>
+                        <span>{rotationPeriod}</span>
+                    </li>
+                    <li className="list-group-item">
+                        <span className="term">Diameter</span>
+                        <span>{diameter}</span>
+                    </li>
+                </ul>
+            </div>
+        </Fragment>
+    );
+};
 
 RandomPlanetCard.propTypes = {
     imageService: PropTypes.object.isRequired,
     swapiService: PropTypes.object.isRequired,
 };
+
+export default RandomPlanetCard;
